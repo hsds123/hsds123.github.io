@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="HSDS123" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="感谢原作者，Mark备用-碧波荡漾网 一、问题：1、 物理条件：只有一个的局域网，一条可以接入广域网的线路（线路IP绑定了局域网中电脑A的MAC），没有路由器，不使用任何网关路由类软件。　 2、要达到的目的让这个局域网的所有电脑上广域网广域网线路IP:211.211.211.88 网关：211.211.211.1 由于绑定了电脑A的MAC导致整个局域网中只有电脑A可以使用这条线路访问外网。211.">
+<meta name="keywords" content="技术,网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zz详解XP下制作同网段单网卡网关代理">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2013&#x2F;zz-Single-Nic-LAN-Proxy&#x2F;">
+<meta property="og:site_name" content="HSDS123">
+<meta property="og:description" content="感谢原作者，Mark备用-碧波荡漾网 一、问题：1、 物理条件：只有一个的局域网，一条可以接入广域网的线路（线路IP绑定了局域网中电脑A的MAC），没有路由器，不使用任何网关路由类软件。　 2、要达到的目的让这个局域网的所有电脑上广域网广域网线路IP:211.211.211.88 网关：211.211.211.1 由于绑定了电脑A的MAC导致整个局域网中只有电脑A可以使用这条线路访问外网。211.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-22T12:38:00.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2013/zz-Single-Nic-LAN-Proxy/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>zz详解XP下制作同网段单网卡网关代理 | HSDS123</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HSDS123</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/zz-Single-Nic-LAN-Proxy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huang Sheng">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HSDS123">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          zz详解XP下制作同网段单网卡网关代理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2013-04-02 00:00:00" itemprop="dateCreated datePublished" datetime="2013-04-02T00:00:00+08:00">2013-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-22 20:38:00" itemprop="dateModified" datetime="2019-11-22T20:38:00+08:00">2019-11-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://www.mybbdy.com/show.asp?id=3719" target="_blank" rel="noopener">感谢原作者，Mark备用-碧波荡漾网</a></p>
+<h1 id="一、问题："><a href="#一、问题：" class="headerlink" title="一、问题："></a>一、问题：</h1><h2 id="1、-物理条件："><a href="#1、-物理条件：" class="headerlink" title="1、 物理条件："></a>1、 物理条件：</h2><p>只有一个的局域网，一条可以接入广域网的线路（线路IP绑定了局域网中电脑A的MAC），没有路由器，不使用任何网关路由类软件。　</p>
+<h2 id="2、要达到的目的"><a href="#2、要达到的目的" class="headerlink" title="2、要达到的目的"></a>2、要达到的目的</h2><p>让这个局域网的所有电脑上广域网<br>广域网线路IP:211.211.211.88 网关：211.211.211.1 由于绑定了电脑A的MAC导致整个局域网中只有电脑A可以使用这条线路访问外网。<br>211.211.211.* 网段中只有不到50台并行设备 对应 IP 为 211.211.211.50~100<br>这里需要提及注意的是：用双绞线把交换机和上一级网络 设备 集联 当然是无法达到我们预想的目的的。　　</p>
+<h1 id="二、问题的解决："><a href="#二、问题的解决：" class="headerlink" title="二、问题的解决："></a>二、问题的解决：</h1><h2 id="关键词：-DEVCON-环回适配器-连接共享-网段扫描"><a href="#关键词：-DEVCON-环回适配器-连接共享-网段扫描" class="headerlink" title="关键词： DEVCON 环回适配器 连接共享 网段扫描"></a>关键词： DEVCON 环回适配器 连接共享 网段扫描</h2><p>DEVCON： 是XP系统的一个CMD指令，用于完成CMD下的设备管理。<br>环回适配器：可以看作MS的内部虚拟网卡<br>连接共享：XP中提供的使局域网 中电脑分享一个网络连接的功能。<br>把广域网线路插在交换机上，把电脑A也连在交换机上。</p>
+<h2 id="A-电脑A上进行如下操作"><a href="#A-电脑A上进行如下操作" class="headerlink" title="A.电脑A上进行如下操作"></a>A.电脑A上进行如下操作</h2><h3 id="1、安装网络适配器"><a href="#1、安装网络适配器" class="headerlink" title="1、安装网络适配器"></a>1、安装网络适配器</h3><p>CMD下 运行命令<br>  <code>devcon install &quot;%WINDIR%\Inf\Netloopinf&quot; *MSLOOP</code><br>可以为系统增加一个环回适配器，并创建一个对应的本地连接</p>
+<h3 id="2、设置网络"><a href="#2、设置网络" class="headerlink" title="2、设置网络"></a>2、设置网络</h3><p>网上邻居—〉属性 发现除了原有的 “本地连接” 外多出一个“本地连接?”<br>通过 新的本地连接 属性，随便设置其IP地址，比如：192.168.100.200 ，并将其设置为 连接共享。<br> 原有的 本地连接 IP设置将会被修改。我们需要手动将之改回来，IP:211.211.211.88 网关:211.211.211.1</p>
+<h2 id="B-在局域网的其他电脑上进行如下设置"><a href="#B-在局域网的其他电脑上进行如下设置" class="headerlink" title="B. 在局域网的其他电脑上进行如下设置"></a>B. 在局域网的其他电脑上进行如下设置</h2><p>  因为211.211.211.* 网段有50台左右的设备使用 50-100的IP,我们就可以使用其他IP设置交换机上的这30台电脑。<br>  设置每一台电脑的IP:211.211.211.101~130 网关：211.211.211.88<br>  如此，交换机上的电脑就可以通过 电脑A 做为透明网关代理上网了。</p>
+<h1 id="三、补充"><a href="#三、补充" class="headerlink" title="三、补充"></a>三、补充</h1><p>电脑A 上一级指向是 211.211.211.1 下一级接受其服务的是这个交换机上的这29台电脑。<br>如果担心电脑A的负荷过大，可以用同样办法，在 局域网中多设几个指向 电脑A 的网关服务器。<br>作用：可作为单网段的网关！再给这单网卡设 双IP，这样你就可以灵活控制这个网段的电脑能否上网了！<br>应用实例：电脑室通过这样设置， 教师机作为网关，随时控制学生机能否上网！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2013/Pictures/" rel="next" title="春暖花开了，传几张照片:-)">
+                  <i class="fa fa-chevron-left"></i> 春暖花开了，传几张照片:-)
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2013/GAE-doodle-debug/" rel="prev" title="网页调试记">
+                  网页调试记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、问题："><span class="nav-number">1.</span> <span class="nav-text">一、问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-物理条件："><span class="nav-number">1.1.</span> <span class="nav-text">1、 物理条件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、要达到的目的"><span class="nav-number">1.2.</span> <span class="nav-text">2、要达到的目的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、问题的解决："><span class="nav-number">2.</span> <span class="nav-text">二、问题的解决：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词：-DEVCON-环回适配器-连接共享-网段扫描"><span class="nav-number">2.1.</span> <span class="nav-text">关键词： DEVCON 环回适配器 连接共享 网段扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-电脑A上进行如下操作"><span class="nav-number">2.2.</span> <span class="nav-text">A.电脑A上进行如下操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、安装网络适配器"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、安装网络适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、设置网络"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、设置网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-在局域网的其他电脑上进行如下设置"><span class="nav-number">2.3.</span> <span class="nav-text">B. 在局域网的其他电脑上进行如下设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、补充"><span class="nav-number">3.</span> <span class="nav-text">三、补充</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Huang Sheng</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Sheng</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="HSDS123" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="这两天调试网页，在默认模板的基础上，更改主题，添加分享链接，添加社会化评论插件。之前除了在C++课上接触代码，后面基本就没再接触过了。\n\n由于doodle这个系统比较非主流，没有现成的插件可用，只能自己动手DIY了，在此首先感谢doodle系统的开发者keakon，这些都是在他的基础上做的小小修改。另外要感谢HCocoa，他的这一篇博客为我指明了方向。下面说说这过程中遇到的问题。 1. 主题首">
+<meta name="keywords" content="技术,Doodle,GAE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网页调试记">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2013&#x2F;GAE-doodle-debug&#x2F;">
+<meta property="og:site_name" content="HSDS123">
+<meta property="og:description" content="这两天调试网页，在默认模板的基础上，更改主题，添加分享链接，添加社会化评论插件。之前除了在C++课上接触代码，后面基本就没再接触过了。\n\n由于doodle这个系统比较非主流，没有现成的插件可用，只能自己动手DIY了，在此首先感谢doodle系统的开发者keakon，这些都是在他的基础上做的小小修改。另外要感谢HCocoa，他的这一篇博客为我指明了方向。下面说说这过程中遇到的问题。 1. 主题首">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;GAE-http500.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;GAE-Afternotebook.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;GAE-Beforenotebook.jpg">
+<meta property="og:updated_time" content="2019-11-22T12:56:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;GAE-http500.png">
+
+<link rel="canonical" href="http://yoursite.com/2013/GAE-doodle-debug/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>网页调试记 | HSDS123</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HSDS123</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/GAE-doodle-debug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huang Sheng">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HSDS123">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网页调试记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2013-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2013-04-03T00:00:00+08:00">2013-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-22 20:56:00" itemprop="dateModified" datetime="2019-11-22T20:56:00+08:00">2019-11-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这两天调试网页，在默认模板的基础上，更改主题，添加分享链接，添加社会化评论插件。之前除了在C++课上接触代码，后面基本就没再接触过了。\n\n由于doodle这个系统比较非主流，没有现成的插件可用，只能自己动手DIY了，在此首先感谢doodle系统的开发者<a href="http://www.keakon.net" target="_blank" rel="noopener">keakon</a>，这些都是在他的基础上做的小小修改。另外要感谢<a href="http://www.hcocoa.com" target="_blank" rel="noopener">HCocoa</a>，他的<a href="http://www.hcocoa.com/2013/03/16/Add-Several-Social-Plugins-to-My-Blog" target="_blank" rel="noopener">这一篇博客</a>为我指明了方向。下面说说这过程中遇到的问题。</p>
+<h1 id="1-主题"><a href="#1-主题" class="headerlink" title="1. 主题"></a>1. 主题</h1><p>首先是主题，虽然keakon大大觉得他<a href="http://www.keakon.net/2011/09/17/%E6%9C%AC%E5%8D%9A%E5%AE%A2%E6%8D%A2%E6%96%B0%E4%B8%BB%E9%A2%98%E5%95%A6" target="_blank" rel="noopener">新加的主题</a>好看，但是我犹豫了一下，还是修改成这套网站模板带的另外一个koi的主题。一开始接触的时候不太懂，就直接在setting.py中把<br><code>THEMES = [&#39;null&#39;, &#39;freshpress&#39;]# 主题</code>里的null改成了koi。后来<a href="http://tiankai.ucoz.com" target="_blank" rel="noopener">TIAN Kai</a>发现点击“手机浏览”会出现HTTP500错误<br><img alt data-src="/img/2013/GAE-http500.png" class="lazyload"><br>试了一下，使用null主题没问题。网上查了查，也有人用这一套博客系统，比如<a href="http://blog.cloudrive.tk" target="_blank" rel="noopener">Blog@Cloudrive</a>，他的“手机浏览”就是正常的。又对比了两个主题，发现null主题多了一套mobile的模板文件，而这正是’iphonsta’的内容。我还考虑了很久怎么在<code>THEMES = [&#39;null&#39;, &#39;freshpress&#39;]# 主题</code>里添加<code>&#39;iphonsta&#39;</code>,后来试了一下把freshpress改成iphonsta，发现可以用了。没高兴多久，又发现管理博客的页面出现了这个错误，不用说就是freshpress主题了。我还考虑了很久怎么把这个freshpress加入到代码中，后来想反正有两个了，再多写一个应该没问题吧，试了一下竟然成功了，第一个问题解决。</p>
+<h1 id="2-桌面模式"><a href="#2-桌面模式" class="headerlink" title="2. 桌面模式"></a>2. 桌面模式</h1><p>第二个问题，发现进入iphonsta主题就回不来了，点击“桌面模式”没用。仔细研究了一下“手机浏览”与“桌面模式”，发现这个取决于mobile参数，在网址后加?mobile=0即可返回桌面，同理，?mobile=1是手机模式。好了，现在这个问题知道是怎么回事了，那要怎么解决“桌面模式”链接的问题呢？这就要感谢另外一套被我否决了的主题“null”。发现在null主题下是正常的，就比较了两个主题的模板文件（当时还不知道这个是干嘛用的），发现html文件有一行不一致，有问题的是<br><code>&lt;span class=&quot;md&quot;&gt;&lt;a href=&quot;#{request.path_qs.replace(BLOG_WAP_RELATIVE_PATH, BLOG_HOME_RELATIVE_PATH)}&quot;&gt;桌面模式&lt;/a&gt;&lt;/span&gt;</code></p>
+<p>正常的是</p>
+<p><code>&lt;span class=&quot;mode&quot;&gt;&lt;a href=&quot;#{request.path.replace(BLOG_WAP_RELATIVE_PATH, BLOG_HOME_RELATIVE_PATH, 1)}?mobile=0&quot;&gt;► 桌面模式&lt;/a&gt;&lt;/span&gt;</code></p>
+<p>抱着试试的心态改过来，正常了，问题解决。</p>
+<h1 id="3-分享"><a href="#3-分享" class="headerlink" title="3. 分享"></a>3. 分享</h1><p>第三个问题，添加分享按钮。网上搜集了很多代码，基本确定如下的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;p class=&quot;post-data&quot;&gt;&lt;span&gt;分享到：&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://v.t.sina.com.cn/share/share.php?title=&apos;+encodeURIComponent(document.title)+&apos;&amp;url=&apos;+encodeURIComponent(document.location.href));void(0)&quot;&gt;新浪微博&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://v.t.qq.com/share/share.php?title=&apos;+encodeURI(document.title)+&apos;&amp;url=&apos;+encodeURI(window.location)+&apos;&amp;site=&apos;+encodeURI);void(0)&quot;&gt;腾讯微博&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://share.renren.com/share/buttonshare.do?link=&apos;+encodeURIComponent(document.location.href)+&apos;&amp;title=&apos;+encodeURIComponent(document.title));void(0)&quot;&gt;人人网&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&apos;+encodeURIComponent(document.location.href));void(0)&quot;&gt;QQ空间&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://www.kaixin001.com/repaste/share.php?rtitle=&apos;+encodeURIComponent(document.title)+&apos;&amp;rurl=&apos;+encodeURIComponent(document.location.href)+&apos;&amp;rcontent=&apos;);void(0)&quot;&gt;开心网&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://www.douban.com/recommend/?url=&apos;+encodeURIComponent(document.location.href)+&apos;&amp;title=&apos;+encodeURIComponent(document.title));void(0)&quot;&gt;豆瓣&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://cang.baidu.com/do/add?it=&apos;+encodeURIComponent(document.title.substring(0,76))+&apos;&amp;iu=&apos;+encodeURIComponent(location.href)); void 0&quot;&gt;百度搜藏&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://shuqian.qq.com/post?from=3&amp;title=&apos;+encodeURIComponent(document.title)+&apos;&amp;uri=&apos;+encodeURIComponent(document.location.href));void(0)&quot;&gt;QQ书签&lt;/a&gt;</span><br><span class="line">&lt;a rel=&quot;nofollow&quot; href=&quot;javascript:window.open(&apos;http://www.google.com/bookmarks/mark?op=add&amp;bkmk=&apos;+encodeURIComponent(document.location.href)+&apos;&amp;title=&apos;+encodeURIComponent(document.title));void(0)&quot;&gt;Google&lt;/a&gt;</span><br><span class="line">&lt;/span&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<p>做到网页上，测试了一下可用。到了第二天，自己也觉得纯文字看上去太不好看了，恰好<a href="http://www.hcocoa.com" target="_blank" rel="noopener">HCocoa</a>指了一个网址，<a href="http://share.baidu.com/code" target="_blank" rel="noopener">http://share.baidu.com/code</a> 发现还是很方便的，果断用之。剩下的就是调整在网页中的位置了，这个参考了很多他的网页源代码。顺便把微博小挂件也放在了网页上。<br>第三一个问题，是社会化登录。旁边的<a href="http://weibo.com/wssstella" target="_blank" rel="noopener">@法斯黛拉</a>听说我在建设一个网站，迫不及待想来抢沙发。考虑到评论的方便性，社会化评论插件还是很有必要的。参考<a href="http://www.hcocoa.com/" target="_blank" rel="noopener">HCocoa</a> （又是他-_-!）的网站，再加上跟他讨论，也在<a href="http://www.duoshuo.com" target="_blank" rel="noopener">多说</a>上搞了一套通用代码。需要解决的问题主要是同一篇文章在不同的网页上都应该显示出同样的评论，而这个网站提供的默认代码是没有这些参数的，要自己去指定data-thread-key我看了看插入网页的代码，就使用了<code>#{article_id}</code>作为文章在原站点中的id或其他唯一标识，期间还对<code>#{article_id}</code>的写法尝试了好久。然后经过多次测试，终于添加好了也能在桌面版与网页版正常显示了。上传代码，准备收工。却发现还有很多地方没有改，一个是页面右侧的最近留言，一个是页面日期下方的评论数量，这两个没有改。在多说上查了半天，把这两个代码也插进去了，中间发现<code>#{article_id}</code>有问题，换成了<code>#{article.url}</code>作为<code>data-thread-key</code>，具体效果见网页。剩下的“最近访客”以后再说吧。</p>
+<h1 id="4-字符集"><a href="#4-字符集" class="headerlink" title="4. 字符集"></a>4. 字符集</h1><p>最后一个问题，也是最坑的一个问题！！！！业余玩玩，一直用记事本来插入这些代码的，功能完成后上传，发现首页有一点不正常的地方，导航栏与文章标题在首页与文章页不一致！点击第一篇文章就有不协调的感觉。<img alt data-src="/img/2013/GAE-Afternotebook.jpg" class="lazyload"> <img alt data-src="/img/2013/GAE-Beforenotebook.jpg" class="lazyload"><br>试了原始的模板，没问题。试了修改的代码，有问题。我开始以为是插入的社会化登录的评论数，后来经过多次尝试发现就是把这些代码删除也有这个问题。无奈之下下载了一个Total Commander（推荐的文件管理软件），比较文件内容，没区别。怎么也发现不了问题在哪，就直接比较二进制文件，发现基本上不一样，仔细看文件几几个字节就不一样。用写字板保存了一下，就没有这个问题了。但是写字板不能选择保存的字符集，中文汉字会乱码。用Total Commander的比较文件内容来修改文件，再测试，正常了，Yeah！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+              <a href="/tags/Doodle/" rel="tag"># Doodle</a>
+              <a href="/tags/GAE/" rel="tag"># GAE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2013/zz-Single-Nic-LAN-Proxy/" rel="next" title="zz详解XP下制作同网段单网卡网关代理">
+                  <i class="fa fa-chevron-left"></i> zz详解XP下制作同网段单网卡网关代理
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2013/Tear-Down-Canon-EF50-F1.8/" rel="prev" title="佳能EF50 F1.8小痰盂拆解">
+                  佳能EF50 F1.8小痰盂拆解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-主题"><span class="nav-number">1.</span> <span class="nav-text">1. 主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-桌面模式"><span class="nav-number">2.</span> <span class="nav-text">2. 桌面模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-分享"><span class="nav-number">3.</span> <span class="nav-text">3. 分享</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-字符集"><span class="nav-number">4.</span> <span class="nav-text">4. 字符集</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Huang Sheng</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Sheng</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="HSDS123" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Ubuntu16.04 搭建VPN服务 1. 安装PPTP，以用来提供VPN服务.sudo apt update &amp;amp;&amp;amp; sudo apt upgrade &amp;amp;&amp;amp; sudo apt autoremovesudo apt install pptpd如果有问题的话比如提示找不到之类的，apt update 一下应该就可以了，然后再来一次就会自动完成安装。 2. 装好了之后我">
+<meta name="keywords" content="技术,VPS,VPN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu16.04 搭建VPN服务">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2017&#x2F;VPS-PPTP&#x2F;">
+<meta property="og:site_name" content="HSDS123">
+<meta property="og:description" content="Ubuntu16.04 搭建VPN服务 1. 安装PPTP，以用来提供VPN服务.sudo apt update &amp;amp;&amp;amp; sudo apt upgrade &amp;amp;&amp;amp; sudo apt autoremovesudo apt install pptpd如果有问题的话比如提示找不到之类的，apt update 一下应该就可以了，然后再来一次就会自动完成安装。 2. 装好了之后我">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-23T02:40:00.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2017/VPS-PPTP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Ubuntu16.04 搭建VPN服务 | HSDS123</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HSDS123</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/VPS-PPTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huang Sheng">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HSDS123">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu16.04 搭建VPN服务
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-01 19:00:00" itemprop="dateCreated datePublished" datetime="2017-02-01T19:00:00+08:00">2017-02-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-23 10:40:00" itemprop="dateModified" datetime="2019-11-23T10:40:00+08:00">2019-11-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Ubuntu16.04 搭建VPN服务</p>
+<h1 id="1-安装PPTP，以用来提供VPN服务"><a href="#1-安装PPTP，以用来提供VPN服务" class="headerlink" title="1. 安装PPTP，以用来提供VPN服务."></a>1. 安装PPTP，以用来提供VPN服务.</h1><p><code>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; sudo apt autoremove</code><br><code>sudo apt install pptpd</code><br>如果有问题的话比如提示找不到之类的，apt update 一下应该就可以了，然后再来一次就会自动完成安装。</p>
+<h1 id="2-装好了之后我们需要进行配置一下以让它可以使用"><a href="#2-装好了之后我们需要进行配置一下以让它可以使用" class="headerlink" title="2. 装好了之后我们需要进行配置一下以让它可以使用."></a>2. 装好了之后我们需要进行配置一下以让它可以使用.</h1><p><code>sudo nano /etc/pptpd.conf</code><br>取消掉以下 2 行的注释并修改为自己设置的vpn网段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localip 219.224.167.201</span><br><span class="line">remoteip 192.168.150.234-238</span><br></pre></td></tr></table></figure>
+<p>分别是通过VPN连接后主机和客户端所使用的IP，可以自行修改。注意这个IP在下面还会用的到。</p>
+<h1 id="3-然后我们需要分配账号给自己使用"><a href="#3-然后我们需要分配账号给自己使用" class="headerlink" title="3. 然后我们需要分配账号给自己使用."></a>3. 然后我们需要分配账号给自己使用.</h1><p><code>sudo nano /etc/ppp/chap-secrets</code><br>这个是用户列表文件，在里面添加账户按如下格式<br><code>“username” pptpd &quot;password&quot; *</code><br>username为你的用户名，password为你的密码，用引号引起,最后的*号表示允许在任意IP连接到服务</p>
+<h1 id="4-DNS设置"><a href="#4-DNS设置" class="headerlink" title="4. DNS设置"></a>4. DNS设置</h1><p><code>sudo nano /etc/ppp/pptpd-options</code><br>找到ms-dns，取消掉注释，改成你喜欢的DNS比如8.8.8.8,8.8.4.4</p>
+<h1 id="5-开启内核IP转发"><a href="#5-开启内核IP转发" class="headerlink" title="5. 开启内核IP转发"></a>5. 开启内核IP转发</h1><p>连接了之后会发现还访问不了外网，如果是需要连接内网的vpn，可以不需要这一步操作。需要让他能访问外网。<br><code>sudo nano /etc/sysctl.conf</code><br>取消掉 <code>net.ipv4.ip_forward=1</code> 这一行的注释，然后执行<br><code>sudo sysctl -p</code><br>使修改后的文件配置立即生效。</p>
+<h1 id="6-然后我们需要安装iptables，用来实现请求的NAT转发"><a href="#6-然后我们需要安装iptables，用来实现请求的NAT转发" class="headerlink" title="6. 然后我们需要安装iptables，用来实现请求的NAT转发"></a>6. 然后我们需要安装iptables，用来实现请求的NAT转发</h1><p><code>sudo apt install iptables</code><br>然后开启NAT转发.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -F</span><br><span class="line">sudo iptables -t nat -A POSTROUTING -s 172.21.5.0/24 -o ens3 -j MASQUERADE</span><br><span class="line">sudo iptables -t nat -A POSTROUTING -s 192.168.150.0/24 -o br0 -j MASQUERADE (如果有虚拟网桥br0的话)</span><br><span class="line">iptables-save</span><br></pre></td></tr></table></figure>
+<p>192.168.150.0/24是你在上面设置的IP段，让这个段转发，注意eth0是你连接外网的那块网卡，不一定是0也有可能是1或者看你的机器哪块网卡连的外网了。这样就以NAT的方式请求外网的东西了。不知道你的机器哪块网卡连的外网的话ifconfig一下看看哪个网卡是外网IP就知道了。</p>
+<h1 id="7-最后，我们需要重启服务，让配置生效"><a href="#7-最后，我们需要重启服务，让配置生效" class="headerlink" title="7. 最后，我们需要重启服务，让配置生效 ."></a>7. 最后，我们需要重启服务，让配置生效 .</h1><p><code>sudo service pptpd restart</code><br>现在你已经可以连接到VPN获取内网150网段的地址了。<br>设置让脚本开机自动启动<br><code>systemctl enable pptpd.service</code></p>
+<h1 id="8-查看有没有人连接该vpn"><a href="#8-查看有没有人连接该vpn" class="headerlink" title="8. 查看有没有人连接该vpn:"></a>8. 查看有没有人连接该vpn:</h1><p><code>netstat -anpt|grep pptpd</code><br>或者<br>ifconfig 也能看出有ppp0/ppp1等。</p>
+<p>======================================================</p>
+<h1 id="9-ubuntu-16-04客户端连接："><a href="#9-ubuntu-16-04客户端连接：" class="headerlink" title="9. ubuntu 16.04客户端连接："></a>9. ubuntu 16.04客户端连接：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install pptp-linux binutils # 安装PPTP-VPN拨号客户端</span><br><span class="line">sudo pptpsetup –-create testvpn –-server 219.224.167.172 –-username user -–password pass –-encrypt -–start # 创建拨号连接</span><br></pre></td></tr></table></figure>
+<p>–create后的是创建的连接名称，可以为任意名称;<br>–server后接的是vpn服务器的IP;<br>–username是用户名<br>–password是密码，在这也可以没这个参数，命令稍后会自动询问。这样可以保证账号安全<br>–encrypt是表示需要加密，不必指定加密方式，命令会读取配置文件中的加密方式<br>–start是表示创建连接完后马上连接，如果你不想连，就不写 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pon testvpn ＃&lt;--VPN的连接名称&quot;</span><br><span class="line">poff ＃&lt;--断开VPN连接</span><br></pre></td></tr></table></figure>
+<p>当连接成功后输入<code>ifconfig</code>命令会出现如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ppp0 Link encap:点对点协议</span><br><span class="line">inet 地址:172.16.36.2 点对点:172.16.36.1 掩码:255.255.255.255</span><br><span class="line">UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1496 跃点数:1</span><br><span class="line">接收数据包:7 错误:0 丢弃:0 过载:0 帧数:0</span><br><span class="line">发送数据包:7 错误:0 丢弃:0 过载:0 载波:0</span><br><span class="line">碰撞:0 发送队列长度:3</span><br><span class="line">接收字节:70 (70.0 B) 发送字节:76 (76.0 B)</span><br></pre></td></tr></table></figure>
+<p>添加网关路由，让流量走VPN<br>从第3步可以看出，新增虚拟接口为ppp0,VPN的网关为172.16.36.1<br>在文件<code>/etc/ppp/ip-up</code>加入该网关。（此文件在VPN拨号成功后会默认调用该脚本，所以加在此文件中不需要手动添加）<br><code>route add default gw 172.16.36.1</code><br>也可以在终端手动敲入上面命令：<br><code>sudo route add default gw 172.16.36.1</code><br>删除原有默认网关路由<br>通过sudo route命令可以查看本机中已经添加的路由。<br>找到对应的路由，假设我这里还有一条路由是192.168.0.1使用以下命令进行删除之：<br><code>sudo route del default gw 192.168.0.1</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+              <a href="/tags/VPS/" rel="tag"># VPS</a>
+              <a href="/tags/VPN/" rel="tag"># VPN</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2016/VPS-SSH-Putty/" rel="next" title="设置Putty SSH使用密钥登录Linux VPS主机">
+                  <i class="fa fa-chevron-left"></i> 设置Putty SSH使用密钥登录Linux VPS主机
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2017/VPS-iptables/" rel="prev" title="Ubuntu Server Iptables 简单实例配置">
+                  Ubuntu Server Iptables 简单实例配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装PPTP，以用来提供VPN服务"><span class="nav-number">1.</span> <span class="nav-text">1. 安装PPTP，以用来提供VPN服务.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-装好了之后我们需要进行配置一下以让它可以使用"><span class="nav-number">2.</span> <span class="nav-text">2. 装好了之后我们需要进行配置一下以让它可以使用.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-然后我们需要分配账号给自己使用"><span class="nav-number">3.</span> <span class="nav-text">3. 然后我们需要分配账号给自己使用.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-DNS设置"><span class="nav-number">4.</span> <span class="nav-text">4. DNS设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-开启内核IP转发"><span class="nav-number">5.</span> <span class="nav-text">5. 开启内核IP转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-然后我们需要安装iptables，用来实现请求的NAT转发"><span class="nav-number">6.</span> <span class="nav-text">6. 然后我们需要安装iptables，用来实现请求的NAT转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-最后，我们需要重启服务，让配置生效"><span class="nav-number">7.</span> <span class="nav-text">7. 最后，我们需要重启服务，让配置生效 .</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-查看有没有人连接该vpn"><span class="nav-number">8.</span> <span class="nav-text">8. 查看有没有人连接该vpn:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-ubuntu-16-04客户端连接："><span class="nav-number">9.</span> <span class="nav-text">9. ubuntu 16.04客户端连接：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Huang Sheng</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Sheng</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

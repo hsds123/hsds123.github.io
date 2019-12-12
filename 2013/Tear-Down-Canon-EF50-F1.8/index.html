@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="HSDS123" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="昨天发现我的小痰盂镜头前组镜片松动了，一看保修期刚过一个月，而作为一个工科男基本的动手能力还是要有的，遂决定拆之。先上拆后的图片下面开始拆机的过程。首先，这是一个完整的镜头然后，拧下镜头电子触点侧面的两个螺丝然后把电子触点按下去，就可以把后挡板拆掉，露出镜头内部的线路板了。然后，把AF&#x2F;MF的面板拆下来（忘了拍照了，盗图一张）再拆下AF&#x2F;MF面板下面的对焦环限位螺丝，就可以把镜桶拆下来了，拆下后的">
+<meta name="keywords" content="技术,生活,图片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="佳能EF50 F1.8小痰盂拆解">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2013&#x2F;Tear-Down-Canon-EF50-F1.8&#x2F;">
+<meta property="og:site_name" content="HSDS123">
+<meta property="og:description" content="昨天发现我的小痰盂镜头前组镜片松动了，一看保修期刚过一个月，而作为一个工科男基本的动手能力还是要有的，遂决定拆之。先上拆后的图片下面开始拆机的过程。首先，这是一个完整的镜头然后，拧下镜头电子触点侧面的两个螺丝然后把电子触点按下去，就可以把后挡板拆掉，露出镜头内部的线路板了。然后，把AF&#x2F;MF的面板拆下来（忘了拍照了，盗图一张）再拆下AF&#x2F;MF面板下面的对焦环限位螺丝，就可以把镜桶拆下来了，拆下后的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8258.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8233.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8234.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8236.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_7277_7557738316_ea5d213596_b.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8239.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8255.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_1012.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_7261_7557734590_95fd8b58bd_b.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8261.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8259.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8258.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8264.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_dispersion.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8287.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_dispersion1.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_dispersion2.jpg">
+<meta property="og:updated_time" content="2019-11-22T13:24:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;img&#x2F;2013&#x2F;Canon_8258.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2013/Tear-Down-Canon-EF50-F1.8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>佳能EF50 F1.8小痰盂拆解 | HSDS123</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HSDS123</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/Tear-Down-Canon-EF50-F1.8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huang Sheng">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HSDS123">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          佳能EF50 F1.8小痰盂拆解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2013-04-08 00:00:00" itemprop="dateCreated datePublished" datetime="2013-04-08T00:00:00+08:00">2013-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-22 21:24:00" itemprop="dateModified" datetime="2019-11-22T21:24:00+08:00">2019-11-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>昨天发现我的小痰盂镜头前组镜片松动了，一看保修期刚过一个月，而作为一个工科男基本的动手能力还是要有的，遂决定拆之。<br>先上拆后的图片<br><img alt data-src="/img/2013/Canon_8258.jpg" class="lazyload"><br>下面开始拆机的过程。<br>首先，这是一个完整的镜头<br><img alt data-src="/img/2013/Canon_8233.jpg" class="lazyload"><br>然后，拧下镜头电子触点侧面的两个螺丝<br><img alt data-src="/img/2013/Canon_8234.jpg" class="lazyload"><br>然后把电子触点按下去，就可以把后挡板拆掉，露出镜头内部的线路板了。<br><img alt data-src="/img/2013/Canon_8236.jpg" class="lazyload"><br>然后，把AF/MF的面板拆下来（忘了拍照了，<a href="https://farm8.staticflickr.com/7277/7557738316_ea5d213596_b.jpg" target="_blank" rel="noopener">盗图一张</a>）<br><img alt data-src="/img/2013/Canon_7277_7557738316_ea5d213596_b.jpg" class="lazyload"><br>再拆下AF/MF面板下面的对焦环限位螺丝，就可以把镜桶拆下来了，拆下后的镜头如下<br><img alt data-src="/img/2013/Canon_8239.jpg" class="lazyload"><br>到这里，部分拆解完毕。仔细看了一下镜头构造，发现对焦环所在的槽变宽了，然后觉得我也拿它没什么办法。原样装回，一试，镜头正常，问题依旧。<br><img alt data-src="/img/2013/Canon_8255.jpg" class="lazyload"></p>
+<p>试好了以后，电脑显示器还显示的是网上的拆解图片，突然发现怎么我的镜头与图片上的有一点不一样呢<br><img alt data-src="/img/2013/Canon_1012.jpg" class="lazyload"><br>我记得我刚才拆了时仔细研究镜头构造的时候的这个间隙比图片中红框里的要大很多呢？？既然问题没解决，也发现了异常，再拆。\n再把这个图片中显示的两个卡扣拆下来，就可以分离前后镜组了。其实在这个时候只要把镜头的前后镜组按一下，那个间隙就合拢了，也就正常了。<a href="https://farm8.staticflickr.com/7261/7557734590_95fd8b58bd_b.jpg" target="_blank" rel="noopener">再借用一下图片</a>)<br><img alt data-src="/img/2013/Canon_7261_7557734590_95fd8b58bd_b.jpg" class="lazyload"><br>但是，既然都拆到这里了，为何不把前后镜组分开呢？稍微在那个缝隙里撬一下就可以把镜头前后分开了，分开后的镜头后组与光圈组件：<br><img alt data-src="/img/2013/Canon_8261.jpg" class="lazyload"><br><img alt data-src="/img/2013/Canon_8259.jpg" class="lazyload"><br>这做工，这塑料齿轮，我都无语了。<br>再来一张全家幅（前面最开始放上来的图片）<br><img alt data-src="/img/2013/Canon_8258.jpg" class="lazyload"><br>发现拆解的过程中还是很容易带入灰尘到中间的镜片上，因此我又用了好几张擦镜纸去擦中间的镜片表面，越擦油污越多………………<br>后来网上查了查，有人说用屏幕清洁剂带的3M魔术布去擦，不会留下灰尘。手头正好有一瓶液晶屏幕清洁剂，心想反正也是最低端的镜头，心一横，干脆直接喷点清洁剂擦一下。竟然发现油污没了！<br>擦了好几遍，装上去看看，一切正常，开始遇到的前组镜片松动的问题也没了。试拍了几张照片<br><img alt data-src="/img/2013/Canon_8264.jpg" class="lazyload"><br>仔细看，最大光圈下怎么有很严重的色散现象，绿边很严重，紫边也有……………………<br>100%截图<br><img alt data-src="/img/2013/Canon_dispersion.jpg" class="lazyload"><br>是不是由于我擦的太多导致镀膜损坏？抑或是清洁剂的化学成分腐蚀镀膜？<br>网上查了一下，色散好像与镀膜也没啥关系，镀膜是为了防止眩光、鬼影的…………<br>求专业人士解答。<br>更新：早上再拍了几张试了一下，好像比昨天好了那么一点点（当然也还存在并且严重着），难道是昨天晚上3点的光线问题，再加上键盘自身的特点导致？<br><img alt data-src="/img/2013/Canon_8287.jpg" class="lazyload"><br>100%截图<br><img alt data-src="/img/2013/Canon_dispersion1.jpg" class="lazyload"><br><img alt data-src="/img/2013/Canon_dispersion2.jpg" class="lazyload"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag"># 技术</a>
+              <a href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag"># 生活</a>
+              <a href="/tags/%E5%9B%BE%E7%89%87/" rel="tag"># 图片</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2013/GAE-doodle-debug/" rel="next" title="网页调试记">
+                  <i class="fa fa-chevron-left"></i> 网页调试记
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2016/VPS-SSH/" rel="prev" title="修改VPS的SSH端口">
+                  修改VPS的SSH端口 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Huang Sheng</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Sheng</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
